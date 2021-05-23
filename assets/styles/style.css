@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: rgb(146, 181, 182);
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+}
+
+.container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 500px;
+    height: 470px;
+    background: rgb(201, 201, 201);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 1px 1px 3px 1px #131313;
+}
+
+.display {
+    width: 100%;
+    height: 120px;
+    padding-right: 15px;
+    background: rgb(19, 19, 19);
+    text-align: right;
+}
+.display p {
+    font-size: 5rem;
+    color: #fff;
+    line-height: 120px;
+}
+
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.keyboard button {
+    width: 25%;
+    height: 70px;
+    background: rgb(189, 189, 189);
+    border: 0.5px solid rgb(177, 177, 177);
+    color: rgb(36, 36, 36);
+    font-size: 1.8rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    transition: .1s;
+}
+
+#equals-button {
+    background: rgb(255, 151, 15);
+    color: rgb(22, 22, 22);
+}
+
+#add-button,
+#subtract-button,
+#multiply-button,
+#divide-button {
+    background: rgb(165, 165, 165);
+    color: rgb(22, 22, 22);
+}
+
+.keyboard button:hover {
+    background: rgb(177, 177, 177);
+}
+
+#equals-button:hover {
+    background: rgb(243, 138, 0);
+    color: rgb(19, 19, 19);
+}
+
+#add-button:hover,
+#subtract-button:hover,
+#multiply-button:hover,
+#divide-button:hover {
+    background: rgb(153, 153, 153);
+    color: rgb(19, 19, 19);
+}
