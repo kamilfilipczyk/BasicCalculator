@@ -3,7 +3,7 @@ const displayCalc = document.querySelector('.calculations');
 
 const buttonsCollection = [];
 
-for (let i = 0; i < 17; i++) {
+for (let i = 0; i < keyboard.children.length; i++) {
     buttonsCollection.push(keyboard.children[i]);
 }
 
