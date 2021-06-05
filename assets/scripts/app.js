@@ -11,12 +11,16 @@ for (const btn of buttonsCollection) {
     btn.addEventListener("click", readButton.bind(btn));
 }
 
-// function outputCalculations(outputValue) {
-//     let displayText = displayCalc.textContent;
-//     displayText += outputValue;
-//     displayCalc.textContent = displayText;
-// }
+function outputCalculations(outputValue) {
+    if (displayCalc.innerHTML === "0") {
+        displayCalc.innerHTML = "";
+    }
+    let displayText = displayCalc.textContent;
+    displayText += outputValue;
+    displayCalc.textContent = displayText;
+}
 
 function readButton() {
     console.log(`${this.innerHTML}`);
+    outputCalculations(this.innerHTML);
 }
