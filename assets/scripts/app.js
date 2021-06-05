@@ -11,16 +11,28 @@ for (const btn of buttonsCollection) {
     btn.addEventListener("click", readButton.bind(btn));
 }
 
-function outputCalculations(outputValue) {
-    if (displayCalc.innerHTML === "0") {
+function manageInput(inputValue) {
+    if (inputValue === "C" ||
+        inputValue === "CE" ||
+        inputValue === "+/-" ||
+        inputValue === "=" ||
+        inputValue === "%") {
+        return;
+    } else if (inputValue === ".") {
+        outputCalculations(inputValue);
+        return;
+    } else if (displayCalc.innerHTML === "0") {
         displayCalc.innerHTML = "";
     }
-    let displayText = displayCalc.textContent;
+    outputCalculations(inputValue);
+}
+
+function outputCalculations(outputValue) {
+    let displayText = displayCalc.innerHTML;
     displayText += outputValue;
-    displayCalc.textContent = displayText;
+    displayCalc.innerHTML = displayText;
 }
 
 function readButton() {
-    console.log(`${this.innerHTML}`);
-    outputCalculations(this.innerHTML);
+    manageInput(this.innerHTML);
 }
