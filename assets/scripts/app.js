@@ -8,7 +8,7 @@ for (let i = 0; i < keyboard.children.length; i++) {
 }
 
 for (const btn of buttonsCollection) {
-    btn.addEventListener("click", readButton);
+    btn.addEventListener("click", readButton.bind(btn));
 }
 
 // function outputCalculations(outputValue) {
@@ -18,5 +18,5 @@ for (const btn of buttonsCollection) {
 // }
 
 function readButton() {
-    console.log("click");
+    console.log(`${this.innerHTML}`);
 }
