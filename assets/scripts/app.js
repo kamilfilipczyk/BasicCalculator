@@ -95,7 +95,7 @@ function calculateResult() {
     }
 }
 
-function manageCalculation() {
+function manageCalculation(pressedButton) {
     if (nextNumber === true && secondNumber !== "") {
         nextNumber = false;
         calculateResult();
@@ -103,6 +103,34 @@ function manageCalculation() {
         addToLog(typeOfOperation, firstNumber, secondNumber, result);
         resetMemory();
         getPreviousResult();
+        if (pressedButton === "=") {
+            return;
+        }
+        switch (pressedButton) {
+            case "+":
+                nextNumber = true;
+                typeOfOperation = ADDITION;
+                outputCalculations(pressedButton);
+                break;
+            case "-":
+                nextNumber = true;
+                typeOfOperation = SUBTRACTION;
+                outputCalculations(pressedButton);
+                break;
+            case "x":
+                nextNumber = true;
+                typeOfOperation = MULTIPLICATION;
+                outputCalculations(pressedButton);
+                break;
+            case "/":
+                nextNumber = true;
+                typeOfOperation = DIVISION;
+                outputCalculations(pressedButton);
+                break;
+
+            default:
+                break;
+        }
     }
 }
 
@@ -128,7 +156,7 @@ function manageInput(pressedButton) {
 
             break;
         case "=":
-            manageCalculation();
+            manageCalculation(pressedButton);
             break;
         case "+":
             if (nextNumber === false) {
@@ -136,7 +164,7 @@ function manageInput(pressedButton) {
                 typeOfOperation = ADDITION;
                 outputCalculations(pressedButton);
             }
-            manageCalculation();
+            manageCalculation(pressedButton);
             break;
         case "-":
             if (nextNumber === false) {
@@ -144,7 +172,7 @@ function manageInput(pressedButton) {
                 typeOfOperation = SUBTRACTION;
                 outputCalculations(pressedButton);
             }
-            manageCalculation();
+            manageCalculation(pressedButton);
             break;
         case "x":
             if (nextNumber === false) {
@@ -152,7 +180,7 @@ function manageInput(pressedButton) {
                 typeOfOperation = MULTIPLICATION;
                 outputCalculations(pressedButton);
             }
-            manageCalculation();
+            manageCalculation(pressedButton);
             break;
         case "/":
             if (nextNumber === false) {
@@ -160,13 +188,13 @@ function manageInput(pressedButton) {
                 typeOfOperation = DIVISION;
                 outputCalculations(pressedButton);
             }
-            manageCalculation();
+            manageCalculation(pressedButton);
             break;
 
         default:
             //only works if a number was clicked
-            outputCalculations(pressedButton);
             assignToNumber(pressedButton);
+            outputCalculations(pressedButton);
             break;
     }
 }
