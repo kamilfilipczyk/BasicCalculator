@@ -55,6 +55,12 @@ function clearAll() {
     resetMemory();
 }
 
+function deleteLastElement() {
+    let displayText = displayCalc.innerHTML;
+    displayText = displayText.slice(0, -1);
+    displayCalc.innerHTML = displayText;
+}
+
 function showResult() {
     let displayText = displayCalc.innerHTML;
     displayCalc.innerHTML = result;
@@ -98,7 +104,7 @@ function calculateResult() {
 
 function manageCalculation(pressedButton) {
     if (nextNumber === true && secondNumber !== "") {
-        nextNumber = false;
+        checkNumber(pressedButton);
         calculateResult();
         showResult();
         addToLog(typeOfOperation, parseFloat(firstNumber), parseFloat(secondNumber), result);
@@ -157,6 +163,7 @@ function checkNumber(pressedButton) {
                 }
                 outputCalculations("0");
             }
+            //blocks adding multiple dots to one number
             let dotCounter = 0;
             for (const num of currentNumber) {
                 if (num === ".") {
@@ -175,6 +182,17 @@ function checkNumber(pressedButton) {
             break;
 
         default:
+            //works only for +, -, x, / and = :
+
+            //if user will leave alone dot in the end of a number it will be deleted
+            if (firstNumber[firstNumber.length - 1] === ".") {
+                firstNumber = firstNumber.slice(0, -1);
+                deleteLastElement();
+            }
+            if (secondNumber[secondNumber.length - 1] === ".") {
+                secondNumber = secondNumber.slice(0, -1);
+                deleteLastElement();
+            }
             break;
     }
 }
@@ -204,6 +222,7 @@ function manageInput(pressedButton) {
             if (nextNumber === false) {
                 nextNumber = true;
                 typeOfOperation = ADDITION;
+                checkNumber(pressedButton);
                 outputCalculations(pressedButton);
             }
             manageCalculation(pressedButton);
@@ -212,6 +231,7 @@ function manageInput(pressedButton) {
             if (nextNumber === false) {
                 nextNumber = true;
                 typeOfOperation = SUBTRACTION;
+                checkNumber(pressedButton);
                 outputCalculations(pressedButton);
             }
             manageCalculation(pressedButton);
@@ -220,6 +240,7 @@ function manageInput(pressedButton) {
             if (nextNumber === false) {
                 nextNumber = true;
                 typeOfOperation = MULTIPLICATION;
+                checkNumber(pressedButton);
                 outputCalculations(pressedButton);
             }
             manageCalculation(pressedButton);
@@ -228,6 +249,7 @@ function manageInput(pressedButton) {
             if (nextNumber === false) {
                 nextNumber = true;
                 typeOfOperation = DIVISION;
+                checkNumber(pressedButton);
                 outputCalculations(pressedButton);
             }
             manageCalculation(pressedButton);
