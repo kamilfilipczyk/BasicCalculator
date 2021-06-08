@@ -100,7 +100,7 @@ function manageCalculation(pressedButton) {
         nextNumber = false;
         calculateResult();
         showResult();
-        addToLog(typeOfOperation, firstNumber, secondNumber, result);
+        addToLog(typeOfOperation, parseFloat(firstNumber), parseFloat(secondNumber), result);
         resetMemory();
         getPreviousResult();
         if (pressedButton === "=") {
