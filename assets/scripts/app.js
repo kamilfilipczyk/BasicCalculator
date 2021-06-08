@@ -8,6 +8,7 @@ let secondNumber = "";
 let typeOfOperation;
 let result;
 let nextNumber = false; //holds an information if any arithmetic symbol was used (if so: true)
+let outputPermission = true; //variable used for the checkNumber function needs, tells if text can be displayed
 
 const calculationsLog = []; //holds informations about all calculations so far
 
@@ -38,14 +39,14 @@ function addToLog(calcType, firstNum, secondNum, calcResult) {
 }
 
 function getPreviousResult() {
-    firstNumber = calculationsLog[calculationsLog.length - 1].calcResult;
-    console.log(firstNumber);
+    firstNumber = calculationsLog[calculationsLog.length - 1].calcResult; //gets last log object in this logs array
 }
 
 function outputCalculations(outputValue) {
     let displayText = displayCalc.innerHTML;
     displayText += outputValue;
     displayCalc.innerHTML = displayText;
+    outputPermission = true;
 }
 
 function clearAll() {
@@ -102,6 +103,7 @@ function manageCalculation(pressedButton) {
         showResult();
         addToLog(typeOfOperation, parseFloat(firstNumber), parseFloat(secondNumber), result);
         resetMemory();
+        //the logic below manages all calculations that are based on previous result
         getPreviousResult();
         if (pressedButton === "=") {
             return;
@@ -134,6 +136,49 @@ function manageCalculation(pressedButton) {
     }
 }
 
+//corrects any invalid values that user can input
+function checkNumber(pressedButton) {
+    let currentNumber;
+    if (nextNumber === false) {
+        currentNumber = firstNumber;
+    } else {
+        currentNumber = secondNumber;
+    }
+    switch (pressedButton) {
+        case ".":
+            //if user starts with dot symbol - "0" is added before it
+            if (currentNumber[0] === pressedButton) {
+                if (currentNumber === firstNumber) {
+                    firstNumber = "";
+                    firstNumber = "0."
+                } else {
+                    secondNumber = "";
+                    secondNumber = "0."
+                }
+                outputCalculations("0");
+            }
+            let dotCounter = 0;
+            for (const num of currentNumber) {
+                if (num === ".") {
+                    dotCounter++;
+                }
+                if (dotCounter === 2) {
+                    if (currentNumber === firstNumber) {
+                        firstNumber = firstNumber.slice(0, -1);
+                    } else {
+                        secondNumber = secondNumber.slice(0, -1);
+                    }
+                    outputPermission = false;
+                    return;
+                }
+            }
+            break;
+
+        default:
+            break;
+    }
+}
+
 function readButton() {
     manageInput(this.innerHTML);
 }
@@ -150,9 +195,6 @@ function manageInput(pressedButton) {
 
             break;
         case "+/-":
-
-            break;
-        case ".":
 
             break;
         case "=":
@@ -194,7 +236,10 @@ function manageInput(pressedButton) {
         default:
             //only works if a number was clicked
             assignToNumber(pressedButton);
-            outputCalculations(pressedButton);
+            checkNumber(pressedButton);
+            if (outputPermission === true) {
+                outputCalculations(pressedButton);
+            }
             break;
     }
 }
