@@ -9,6 +9,7 @@ let typeOfOperation;
 let result;
 let nextNumber = false; //holds an information if any arithmetic symbol was used (if so: true)
 
+const calculationsLog = []; //holds informations about all calculations so far
 
 const ADDITION = "addition";
 const SUBTRACTION = "subtraction";
@@ -25,6 +26,16 @@ for (const btn of buttonsCollection) {
     btn.addEventListener("click", readButton.bind(btn));
 }
 
+function addToLog(calcType, firstNum, secondNum, calcResult) {
+    const calculationInfo = {
+        calcType: calcType,
+        firstNum: firstNum,
+        secondNum: secondNum,
+        calcResult: calcResult
+    };
+    calculationsLog.push(calculationInfo);
+    console.log(calculationsLog);
+}
 
 function outputCalculations(outputValue) {
     let displayText = displayCalc.innerHTML;
@@ -105,6 +116,7 @@ function manageInput(pressedButton) {
                 nextNumber = false;
                 calculateResult();
                 showResult();
+                addToLog(typeOfOperation, firstNumber, secondNumber, result);
                 resetMemory();
             }
             break;
