@@ -37,6 +37,11 @@ function addToLog(calcType, firstNum, secondNum, calcResult) {
     console.log(calculationsLog);
 }
 
+function getPreviousResult() {
+    firstNumber = calculationsLog[calculationsLog.length - 1].calcResult;
+    console.log(firstNumber);
+}
+
 function outputCalculations(outputValue) {
     let displayText = displayCalc.innerHTML;
     displayText += outputValue;
@@ -90,6 +95,17 @@ function calculateResult() {
     }
 }
 
+function manageCalculation() {
+    if (nextNumber === true && secondNumber !== "") {
+        nextNumber = false;
+        calculateResult();
+        showResult();
+        addToLog(typeOfOperation, firstNumber, secondNumber, result);
+        resetMemory();
+        getPreviousResult();
+    }
+}
+
 function readButton() {
     manageInput(this.innerHTML);
 }
@@ -112,13 +128,7 @@ function manageInput(pressedButton) {
 
             break;
         case "=":
-            if (nextNumber === true && secondNumber !== "") {
-                nextNumber = false;
-                calculateResult();
-                showResult();
-                addToLog(typeOfOperation, firstNumber, secondNumber, result);
-                resetMemory();
-            }
+            manageCalculation();
             break;
         case "+":
             if (nextNumber === false) {
@@ -126,6 +136,7 @@ function manageInput(pressedButton) {
                 typeOfOperation = ADDITION;
                 outputCalculations(pressedButton);
             }
+            manageCalculation();
             break;
         case "-":
             if (nextNumber === false) {
@@ -133,6 +144,7 @@ function manageInput(pressedButton) {
                 typeOfOperation = SUBTRACTION;
                 outputCalculations(pressedButton);
             }
+            manageCalculation();
             break;
         case "x":
             if (nextNumber === false) {
@@ -140,6 +152,7 @@ function manageInput(pressedButton) {
                 typeOfOperation = MULTIPLICATION;
                 outputCalculations(pressedButton);
             }
+            manageCalculation();
             break;
         case "/":
             if (nextNumber === false) {
@@ -147,6 +160,7 @@ function manageInput(pressedButton) {
                 typeOfOperation = DIVISION;
                 outputCalculations(pressedButton);
             }
+            manageCalculation();
             break;
 
         default:
