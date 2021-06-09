@@ -46,7 +46,6 @@ function outputCalculations(outputValue) {
     let displayText = displayCalc.innerHTML;
     displayText += outputValue;
     displayCalc.innerHTML = displayText;
-    outputPermission = true;
 }
 
 function clearAll() {
@@ -61,9 +60,9 @@ function deleteLastElement() {
     displayCalc.innerHTML = displayText;
 }
 
-function showResult() {
+function showOnDisplay(textToDisplay) {
     let displayText = displayCalc.innerHTML;
-    displayCalc.innerHTML = result;
+    displayCalc.innerHTML = textToDisplay;
 }
 
 function resetMemory() {
@@ -106,7 +105,7 @@ function manageCalculation(pressedButton) {
     if (nextNumber === true && secondNumber !== "") {
         checkNumber(pressedButton);
         calculateResult();
-        showResult();
+        showOnDisplay(result);
         addToLog(typeOfOperation, parseFloat(firstNumber), parseFloat(secondNumber), result);
         resetMemory();
         //the logic below manages all calculations that are based on previous result
@@ -164,7 +163,7 @@ function checkNumber(pressedButton) {
                 }
                 outputCalculations("0");
             }
-            //blocks adding multiple dots to one number
+            //blocks possibility of adding multiple dots to one number
             let dotCounter = 0;
             for (const num of currentNumber) {
                 if (num === ".") {
@@ -183,7 +182,7 @@ function checkNumber(pressedButton) {
             break;
 
         case "0":
-
+            //blocks possibility of adding multiple zeros at the beginning of the number
             if (currentNumber[0] === "0" && currentNumber[1] === "0") {
                 if (currentNumber === firstNumber) {
                     firstNumber = firstNumber.slice(0, -1);
@@ -196,7 +195,7 @@ function checkNumber(pressedButton) {
         default:
             //works only for +, -, x, / and = :
 
-            //if user will leave alone dot in the end of a number it will be deleted
+            //if user will leave alone dot at the end of a number it will be deleted
             if (firstNumber[firstNumber.length - 1] === ".") {
                 firstNumber = firstNumber.slice(0, -1);
                 deleteLastElement();
@@ -204,6 +203,13 @@ function checkNumber(pressedButton) {
             if (secondNumber[secondNumber.length - 1] === ".") {
                 secondNumber = secondNumber.slice(0, -1);
                 deleteLastElement();
+            }
+
+            //removes redundant zeros at the end of a number
+            if (secondNumber === "") {
+                firstNumber = parseFloat(firstNumber).toString();
+                showOnDisplay(firstNumber);
+                outputPermission = false;
             }
             break;
     }
