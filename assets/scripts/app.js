@@ -206,12 +206,19 @@ function checkNumber(pressedButton) {
             }
 
             //removes redundant zeros at the end of a number
-            if (secondNumber === "") {
+            if (secondNumber === "" && firstNumber !== "") {
                 firstNumber = parseFloat(firstNumber).toString();
                 showOnDisplay(firstNumber);
                 outputPermission = false;
             }
             break;
+    }
+}
+
+function checkFirstNumber() {
+    if (firstNumber === "") {
+        firstNumber = "0";
+        outputCalculations(firstNumber);
     }
 }
 
@@ -238,6 +245,7 @@ function manageInput(pressedButton) {
             manageCalculation(pressedButton);
             break;
         case "+":
+            checkFirstNumber(); //before performing a calculation check if the first number has a value, if not set it to 0
             if (nextNumber === false) {
                 nextNumber = true;
                 typeOfOperation = ADDITION;
@@ -247,6 +255,7 @@ function manageInput(pressedButton) {
             manageCalculation(pressedButton);
             break;
         case "-":
+            checkFirstNumber();
             if (nextNumber === false) {
                 nextNumber = true;
                 typeOfOperation = SUBTRACTION;
@@ -256,6 +265,7 @@ function manageInput(pressedButton) {
             manageCalculation(pressedButton);
             break;
         case "x":
+            checkFirstNumber();
             if (nextNumber === false) {
                 nextNumber = true;
                 typeOfOperation = MULTIPLICATION;
@@ -265,6 +275,7 @@ function manageInput(pressedButton) {
             manageCalculation(pressedButton);
             break;
         case "/":
+            checkFirstNumber();
             if (nextNumber === false) {
                 nextNumber = true;
                 typeOfOperation = DIVISION;
