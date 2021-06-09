@@ -145,6 +145,7 @@ function manageCalculation(pressedButton) {
 //corrects any invalid values that user can input
 function checkNumber(pressedButton) {
     let currentNumber;
+    //checks which number is currently on use
     if (nextNumber === false) {
         currentNumber = firstNumber;
     } else {
@@ -181,6 +182,17 @@ function checkNumber(pressedButton) {
             }
             break;
 
+        case "0":
+
+            if (currentNumber[0] === "0" && currentNumber[1] === "0") {
+                if (currentNumber === firstNumber) {
+                    firstNumber = firstNumber.slice(0, -1);
+                } else {
+                    secondNumber = secondNumber.slice(0, -1);
+                }
+                outputPermission = false;
+            }
+            break;
         default:
             //works only for +, -, x, / and = :
 
@@ -202,6 +214,7 @@ function readButton() {
 }
 
 function manageInput(pressedButton) {
+    outputPermission = true;
     switch (pressedButton) {
         case "C":
             clearAll();
@@ -256,7 +269,7 @@ function manageInput(pressedButton) {
             break;
 
         default:
-            //only works if a number was clicked
+            //only works if a number or dot was clicked
             assignToNumber(pressedButton);
             checkNumber(pressedButton);
             if (outputPermission === true) {
