@@ -32,7 +32,7 @@ function addToLog(calcType, firstNum, secondNum, calcResult) {
         calcType: calcType,
         firstNum: firstNum,
         secondNum: secondNum,
-        calcResult: calcResult
+        calcResult: calcResult.toNumber()
     };
     calculationsLog.push(calculationInfo);
     console.log(calculationsLog);
@@ -82,18 +82,21 @@ function assignToNumber(inputValue) {
 }
 
 function calculateResult() {
+    Decimal.set({
+        precision: 10
+    })
     switch (typeOfOperation) {
         case ADDITION:
-            result = parseFloat(firstNumber) + parseFloat(secondNumber);
+            result = new Decimal(firstNumber).plus(secondNumber);
             break;
         case SUBTRACTION:
-            result = parseFloat(firstNumber) - parseFloat(secondNumber);
+            result = new Decimal(firstNumber).sub(secondNumber);
             break;
         case MULTIPLICATION:
-            result = parseFloat(firstNumber) * parseFloat(secondNumber);
+            result = new Decimal(firstNumber).mul(secondNumber);
             break;
         case DIVISION:
-            result = parseFloat(firstNumber) / parseFloat(secondNumber);
+            result = new Decimal(firstNumber).div(secondNumber);
             break;
 
         default:
