@@ -4,6 +4,12 @@
     box-sizing: border-box;
 }
 
+#clear-element-button,
+#modulo-button,
+#plus-minus-button {
+    display: none;
+}
+
 body {
     background: rgb(146, 181, 182);
 }
@@ -56,6 +62,14 @@ html {
     font-weight: 300;
     cursor: pointer;
     transition: .1s;
+}
+
+#clear-button {
+    width: 75%;
+}
+
+#zero-button {
+    width: 50%;
 }
 
 #equals-button {

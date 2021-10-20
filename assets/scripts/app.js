@@ -102,6 +102,7 @@ function calculateResult() {
         default:
             break;
     }
+
 }
 
 function manageCalculation(pressedButton) {
@@ -116,6 +117,7 @@ function manageCalculation(pressedButton) {
         if (pressedButton === "=") {
             return;
         }
+
         switch (pressedButton) {
             case "+":
                 nextNumber = true;
